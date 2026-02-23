@@ -172,6 +172,7 @@ python run_tests.py                # Run tests
 - Never commit directly to `main` — use feature branches (`feat/`, `fix/`, `refactor/`, `test/`)
 - Conventional commit messages: `fix:`, `feat:`, `refactor:`, `test:`, `docs:`, `chore:`
 - One logical change per commit — don't bundle unrelated fixes
+- NEVER add Co-authored-by trailers to git commits
 
 ## Exploration Budget
 
