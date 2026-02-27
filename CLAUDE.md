@@ -49,7 +49,7 @@ The library parses Apple's Unified Log binary format (tracev3 files) using `nom`
 
 - **`src/lib.rs`** — Library root. `#![forbid(unsafe_code)]` with strict clippy lints (cast_lossless, cast_possible_wrap, checked_conversions, etc.)
 - **`src/parser.rs`** — Main parsing entry points: `collect_timesync()`, `build_log()`
-- **`src/unified_log.rs`** — `UnifiedLogData` struct (the primary output type)
+- **`src/unified_log.rs`** — `UnifiedLogData` struct (the primary output type); each log entry includes an `evidence` field with the source tracev3 file path (added v0.5.1)
 - **`src/iterator.rs`** — `UnifiedLogIterator` for streaming log entries
 - **`src/traits.rs`** / **`src/filesystem.rs`** — `FileProvider` trait with `LiveSystemProvider` implementation
 - **`src/chunks/`** — Binary chunk parsers (firehose logs, signposts, activities, state/simple dumps, oversize entries)
@@ -63,9 +63,9 @@ The library parses Apple's Unified Log binary format (tracev3 files) using `nom`
 - rustfmt: Unix LF, 4-space tabs, max_width=100, chain_width=60
 - Allowed licenses (cargo-deny): MIT, Apache-2.0, Unlicense, Unicode-3.0
 
-### CI (7 workflows)
+### CI (6 workflows)
 
-- **rust.yml / pullrequest.yml** — fmt check + clippy (`-D warnings`, zero-warning policy) + test on macOS x86_64 and aarch64
+- **pullrequest.yml** — fmt check + clippy + test on macOS x86_64 and aarch64
 - **deny.yml** — cargo-deny checks on PRs (licenses, advisories, bans)
 - **audit.yml** — cargo-audit on PRs touching Cargo.toml/lock + daily cron
 - **publish.yml** — publishes to crates.io on version tags (`v[0-9]+.*`)
@@ -100,9 +100,8 @@ Plugin-based architecture where artifact parsers are dynamically loaded at runti
 - **`scripts/artifacts/`** — ~318 artifact plugin modules (dynamically loaded)
 - **`admin/scripts/`** — Auto-run on main branch: generates module catalog, device info docs, filepath summaries (via CI workflow `update_module_info.yml`)
 
-### CI (4 workflows)
+### CI (3 workflows)
 
-- **run_tests.yml** — pytest unit + artifact tests on Python 3.12, triggered by .py/tests changes
 - **python_lint.yml** — pylint on changed .py files only (`--disable=C,R`)
 - **update_module_info.yml** — auto-generates admin/ docs when plugins change (commits directly to main)
 - **filepath_search_summary.yml** — manual dispatch for filepath search docs
