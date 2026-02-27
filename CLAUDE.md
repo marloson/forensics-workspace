@@ -49,7 +49,7 @@ The library parses Apple's Unified Log binary format (tracev3 files) using `nom`
 
 - **`src/lib.rs`** — Library root. `#![forbid(unsafe_code)]` with strict clippy lints (cast_lossless, cast_possible_wrap, checked_conversions, etc.)
 - **`src/parser.rs`** — Main parsing entry points: `collect_timesync()`, `build_log()`
-- **`src/unified_log.rs`** — `UnifiedLogData` struct (the primary output type)
+- **`src/unified_log.rs`** — `UnifiedLogData` struct (the primary output type); each log entry includes an `evidence` field with the source tracev3 file path (added v0.5.1)
 - **`src/iterator.rs`** — `UnifiedLogIterator` for streaming log entries
 - **`src/traits.rs`** / **`src/filesystem.rs`** — `FileProvider` trait with `LiveSystemProvider` implementation
 - **`src/chunks/`** — Binary chunk parsers (firehose logs, signposts, activities, state/simple dumps, oversize entries)
